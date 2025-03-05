@@ -21,18 +21,18 @@
             "type": "function"
         }
     ],
-    "metadata": "{\"compiler\":{\"version\":\"0.8.28+commit.7893614a\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"}],\"name\":\"isUserVerified\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/branimirt/Documents/GitHub/zkp-polygon-voting/src/Election.sol\":\"IMockUserVerification\"},\"evmVersion\":\"cancun\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[],\"viaIR\":true},\"sources\":{\"/Users/branimirt/Documents/GitHub/zkp-polygon-voting/src/Election.sol\":{\"keccak256\":\"0x3850afef7e931f9f858fdb4e2c7d24d7f34b614f555a143d66ae891da7c4a303\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://9c8c26ab629e756d7bb9cd822cc7ab3429a4d9757404626af8f3cbcbe81d5337\",\"dweb:/ipfs/QmSkBWkFxL1mz8BaFQRK6Mi8BirJpT1s2LJYceMhPo9irQ\"]}},\"version\":1}",
+    "metadata": "{\"compiler\":{\"version\":\"0.8.28+commit.7893614a\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"}],\"name\":\"isUserVerified\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/branimirt/Documents/GitHub/zkp-voting-contracts/src/Election.sol\":\"IMockUserVerification\"},\"evmVersion\":\"cancun\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[],\"viaIR\":true},\"sources\":{\"/Users/branimirt/Documents/GitHub/zkp-voting-contracts/src/Election.sol\":{\"keccak256\":\"0x3850afef7e931f9f858fdb4e2c7d24d7f34b614f555a143d66ae891da7c4a303\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://9c8c26ab629e756d7bb9cd822cc7ab3429a4d9757404626af8f3cbcbe81d5337\",\"dweb:/ipfs/QmSkBWkFxL1mz8BaFQRK6Mi8BirJpT1s2LJYceMhPo9irQ\"]}},\"version\":1}",
     "bytecode": "",
     "deployedBytecode": "",
     "sourceMap": "",
     "deployedSourceMap": "",
-    "sourcePath": "/Users/branimirt/Documents/GitHub/zkp-polygon-voting/src/Election.sol",
+    "sourcePath": "/Users/branimirt/Documents/GitHub/zkp-voting-contracts/src/Election.sol",
     "compiler": {
         "name": "solc",
         "version": "0.8.28+commit.7893614a"
     },
     "ast": {
-        "absolutePath": "/Users/branimirt/Documents/GitHub/zkp-polygon-voting/src/Election.sol",
+        "absolutePath": "/Users/branimirt/Documents/GitHub/zkp-voting-contracts/src/Election.sol",
         "exportedSymbols": {
             "Election": [
                 329

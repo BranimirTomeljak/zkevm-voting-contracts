@@ -1,6 +1,6 @@
 {
     "contracts": {
-        "/Users/branimirt/Documents/GitHub/zkp-polygon-voting/src/Election.sol": {
+        "/Users/branimirt/Documents/GitHub/zkp-voting-contracts/src/Election.sol": {
             "Election": {
                 "abi": [
                     {
@@ -407,12 +407,12 @@
                         "vote(uint256)": "0121b93f"
                     }
                 },
-                "metadata": "{\"compiler\":{\"version\":\"0.8.28+commit.7893614a\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_verifierAddress\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"}],\"name\":\"CandidateAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[],\"name\":\"ElectionEnded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[],\"name\":\"ElectionStarted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"voter\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"candidateId\",\"type\":\"uint256\"}],\"name\":\"VoteCasted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"voter\",\"type\":\"address\"}],\"name\":\"VoterRegistered\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"_name\",\"type\":\"string\"}],\"name\":\"addCandidate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"candidates\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"voteCount\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"endElection\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_candidateId\",\"type\":\"uint256\"}],\"name\":\"getCandidate\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getCandidatesCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"hasVoted\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"isElectionActive\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"registerToVote\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"registeredVoters\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"startElection\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"userVerifier\",\"outputs\":[{\"internalType\":\"contract IMockUserVerification\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_candidateId\",\"type\":\"uint256\"}],\"name\":\"vote\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"details\":\"A simple voting contract referencing a mock user verification contract.\",\"kind\":\"dev\",\"methods\":{\"addCandidate(uint256,string)\":{\"details\":\"Add a candidate (only owner) before the election starts.\"},\"endElection()\":{\"details\":\"End the election.\"},\"getCandidate(uint256)\":{\"details\":\"Get candidate info by ID.\"},\"getCandidatesCount()\":{\"details\":\"Returns how many candidates currently exist.\"},\"registerToVote()\":{\"details\":\"Register to vote, requiring that the user is \\\"verified\\\" in the mock contract.\"},\"startElection()\":{\"details\":\"Start the election.\"},\"vote(uint256)\":{\"details\":\"Vote for a candidate (registered & not-yet-voted).\"}},\"title\":\"Election\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/branimirt/Documents/GitHub/zkp-polygon-voting/src/Election.sol\":\"Election\"},\"evmVersion\":\"cancun\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[],\"viaIR\":true},\"sources\":{\"/Users/branimirt/Documents/GitHub/zkp-polygon-voting/src/Election.sol\":{\"keccak256\":\"0x3850afef7e931f9f858fdb4e2c7d24d7f34b614f555a143d66ae891da7c4a303\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://9c8c26ab629e756d7bb9cd822cc7ab3429a4d9757404626af8f3cbcbe81d5337\",\"dweb:/ipfs/QmSkBWkFxL1mz8BaFQRK6Mi8BirJpT1s2LJYceMhPo9irQ\"]}},\"version\":1}",
+                "metadata": "{\"compiler\":{\"version\":\"0.8.28+commit.7893614a\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_verifierAddress\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"}],\"name\":\"CandidateAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[],\"name\":\"ElectionEnded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[],\"name\":\"ElectionStarted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"voter\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"candidateId\",\"type\":\"uint256\"}],\"name\":\"VoteCasted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"voter\",\"type\":\"address\"}],\"name\":\"VoterRegistered\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"_name\",\"type\":\"string\"}],\"name\":\"addCandidate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"candidates\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"voteCount\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"endElection\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_candidateId\",\"type\":\"uint256\"}],\"name\":\"getCandidate\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getCandidatesCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"hasVoted\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"isElectionActive\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"registerToVote\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"registeredVoters\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"startElection\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"userVerifier\",\"outputs\":[{\"internalType\":\"contract IMockUserVerification\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_candidateId\",\"type\":\"uint256\"}],\"name\":\"vote\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"details\":\"A simple voting contract referencing a mock user verification contract.\",\"kind\":\"dev\",\"methods\":{\"addCandidate(uint256,string)\":{\"details\":\"Add a candidate (only owner) before the election starts.\"},\"endElection()\":{\"details\":\"End the election.\"},\"getCandidate(uint256)\":{\"details\":\"Get candidate info by ID.\"},\"getCandidatesCount()\":{\"details\":\"Returns how many candidates currently exist.\"},\"registerToVote()\":{\"details\":\"Register to vote, requiring that the user is \\\"verified\\\" in the mock contract.\"},\"startElection()\":{\"details\":\"Start the election.\"},\"vote(uint256)\":{\"details\":\"Vote for a candidate (registered & not-yet-voted).\"}},\"title\":\"Election\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/branimirt/Documents/GitHub/zkp-voting-contracts/src/Election.sol\":\"Election\"},\"evmVersion\":\"cancun\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[],\"viaIR\":true},\"sources\":{\"/Users/branimirt/Documents/GitHub/zkp-voting-contracts/src/Election.sol\":{\"keccak256\":\"0x3850afef7e931f9f858fdb4e2c7d24d7f34b614f555a143d66ae891da7c4a303\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://9c8c26ab629e756d7bb9cd822cc7ab3429a4d9757404626af8f3cbcbe81d5337\",\"dweb:/ipfs/QmSkBWkFxL1mz8BaFQRK6Mi8BirJpT1s2LJYceMhPo9irQ\"]}},\"version\":1}",
                 "storageLayout": {
                     "storage": [
                         {
                             "astId": 12,
-                            "contract": "/Users/branimirt/Documents/GitHub/zkp-polygon-voting/src/Election.sol:Election",
+                            "contract": "/Users/branimirt/Documents/GitHub/zkp-voting-contracts/src/Election.sol:Election",
                             "label": "owner",
                             "offset": 0,
                             "slot": "0",
@@ -420,7 +420,7 @@
                         },
                         {
                             "astId": 14,
-                            "contract": "/Users/branimirt/Documents/GitHub/zkp-polygon-voting/src/Election.sol:Election",
+                            "contract": "/Users/branimirt/Documents/GitHub/zkp-voting-contracts/src/Election.sol:Election",
                             "label": "isElectionActive",
                             "offset": 20,
                             "slot": "0",
@@ -428,7 +428,7 @@
                         },
                         {
                             "astId": 17,
-                            "contract": "/Users/branimirt/Documents/GitHub/zkp-polygon-voting/src/Election.sol:Election",
+                            "contract": "/Users/branimirt/Documents/GitHub/zkp-voting-contracts/src/Election.sol:Election",
                             "label": "userVerifier",
                             "offset": 0,
                             "slot": "1",
@@ -436,7 +436,7 @@
                         },
                         {
                             "astId": 28,
-                            "contract": "/Users/branimirt/Documents/GitHub/zkp-polygon-voting/src/Election.sol:Election",
+                            "contract": "/Users/branimirt/Documents/GitHub/zkp-voting-contracts/src/Election.sol:Election",
                             "label": "candidates",
                             "offset": 0,
                             "slot": "2",
@@ -444,7 +444,7 @@
                         },
                         {
                             "astId": 32,
-                            "contract": "/Users/branimirt/Documents/GitHub/zkp-polygon-voting/src/Election.sol:Election",
+                            "contract": "/Users/branimirt/Documents/GitHub/zkp-voting-contracts/src/Election.sol:Election",
                             "label": "candidateIndex",
                             "offset": 0,
                             "slot": "3",
@@ -452,7 +452,7 @@
                         },
                         {
                             "astId": 36,
-                            "contract": "/Users/branimirt/Documents/GitHub/zkp-polygon-voting/src/Election.sol:Election",
+                            "contract": "/Users/branimirt/Documents/GitHub/zkp-voting-contracts/src/Election.sol:Election",
                             "label": "registeredVoters",
                             "offset": 0,
                             "slot": "4",
@@ -460,7 +460,7 @@
                         },
                         {
                             "astId": 40,
-                            "contract": "/Users/branimirt/Documents/GitHub/zkp-polygon-voting/src/Election.sol:Election",
+                            "contract": "/Users/branimirt/Documents/GitHub/zkp-voting-contracts/src/Election.sol:Election",
                             "label": "hasVoted",
                             "offset": 0,
                             "slot": "5",
@@ -514,7 +514,7 @@
                             "members": [
                                 {
                                     "astId": 19,
-                                    "contract": "/Users/branimirt/Documents/GitHub/zkp-polygon-voting/src/Election.sol:Election",
+                                    "contract": "/Users/branimirt/Documents/GitHub/zkp-voting-contracts/src/Election.sol:Election",
                                     "label": "id",
                                     "offset": 0,
                                     "slot": "0",
@@ -522,7 +522,7 @@
                                 },
                                 {
                                     "astId": 21,
-                                    "contract": "/Users/branimirt/Documents/GitHub/zkp-polygon-voting/src/Election.sol:Election",
+                                    "contract": "/Users/branimirt/Documents/GitHub/zkp-voting-contracts/src/Election.sol:Election",
                                     "label": "name",
                                     "offset": 0,
                                     "slot": "1",
@@ -530,7 +530,7 @@
                                 },
                                 {
                                     "astId": 23,
-                                    "contract": "/Users/branimirt/Documents/GitHub/zkp-polygon-voting/src/Election.sol:Election",
+                                    "contract": "/Users/branimirt/Documents/GitHub/zkp-voting-contracts/src/Election.sol:Election",
                                     "label": "voteCount",
                                     "offset": 0,
                                     "slot": "2",
@@ -602,7 +602,7 @@
                         "isUserVerified(address)": "ace417e0"
                     }
                 },
-                "metadata": "{\"compiler\":{\"version\":\"0.8.28+commit.7893614a\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"}],\"name\":\"isUserVerified\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/branimirt/Documents/GitHub/zkp-polygon-voting/src/Election.sol\":\"IMockUserVerification\"},\"evmVersion\":\"cancun\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[],\"viaIR\":true},\"sources\":{\"/Users/branimirt/Documents/GitHub/zkp-polygon-voting/src/Election.sol\":{\"keccak256\":\"0x3850afef7e931f9f858fdb4e2c7d24d7f34b614f555a143d66ae891da7c4a303\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://9c8c26ab629e756d7bb9cd822cc7ab3429a4d9757404626af8f3cbcbe81d5337\",\"dweb:/ipfs/QmSkBWkFxL1mz8BaFQRK6Mi8BirJpT1s2LJYceMhPo9irQ\"]}},\"version\":1}",
+                "metadata": "{\"compiler\":{\"version\":\"0.8.28+commit.7893614a\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"}],\"name\":\"isUserVerified\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/branimirt/Documents/GitHub/zkp-voting-contracts/src/Election.sol\":\"IMockUserVerification\"},\"evmVersion\":\"cancun\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[],\"viaIR\":true},\"sources\":{\"/Users/branimirt/Documents/GitHub/zkp-voting-contracts/src/Election.sol\":{\"keccak256\":\"0x3850afef7e931f9f858fdb4e2c7d24d7f34b614f555a143d66ae891da7c4a303\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://9c8c26ab629e756d7bb9cd822cc7ab3429a4d9757404626af8f3cbcbe81d5337\",\"dweb:/ipfs/QmSkBWkFxL1mz8BaFQRK6Mi8BirJpT1s2LJYceMhPo9irQ\"]}},\"version\":1}",
                 "storageLayout": {
                     "storage": [],
                     "types": null
@@ -616,9 +616,9 @@
         }
     },
     "sources": {
-        "/Users/branimirt/Documents/GitHub/zkp-polygon-voting/src/Election.sol": {
+        "/Users/branimirt/Documents/GitHub/zkp-voting-contracts/src/Election.sol": {
             "ast": {
-                "absolutePath": "/Users/branimirt/Documents/GitHub/zkp-polygon-voting/src/Election.sol",
+                "absolutePath": "/Users/branimirt/Documents/GitHub/zkp-voting-contracts/src/Election.sol",
                 "exportedSymbols": {
                     "Election": [
                         329

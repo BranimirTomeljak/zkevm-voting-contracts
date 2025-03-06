@@ -54,14 +54,6 @@ contract Election {
         userVerifier = IMockUserVerification(_verifierAddress);
     }
 
-    function getOwner() external view returns (address) {
-        return owner;
-    }
-
-    function getElectionStatus() external view returns (bool) {
-        return isElectionActive;
-    }
-
     /**
      * @dev Add a candidate (owner only), but only before the election starts.
      */

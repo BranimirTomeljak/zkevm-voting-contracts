@@ -13,7 +13,7 @@ contract Election {
     address public owner;
     bool public isElectionActive;
 
-    // We hold a reference to the mock verification contract
+    // Reference to a mock user verification contract (whitelisting / gating)
     IMockUserVerification public userVerifier;
 
     struct Candidate {
@@ -22,7 +22,10 @@ contract Election {
         uint256 voteCount;
     }
 
+    // Array of candidates
     Candidate[] public candidates;
+
+    // Maps candidate ID -> index in the `candidates` array
     mapping(uint256 => uint256) private candidateIndex;
 
     // Track who’s registered and who has voted
@@ -51,11 +54,16 @@ contract Election {
         userVerifier = IMockUserVerification(_verifierAddress);
     }
 
-    // TODO: dodat funkciju koja vraća broj glasova za svakog kandidata
-    // TODO: općenito poboljšat funkcionalnosti, vidit šta se sve može dodat u kontekstu izbora
+    function getOwner() external view returns (address) {
+        return owner;
+    }
+
+    function getElectionStatus() external view returns (bool) {
+        return isElectionActive;
+    }
 
     /**
-     * @dev Add a candidate (only owner) before the election starts.
+     * @dev Add a candidate (owner only), but only before the election starts.
      */
     function addCandidate(uint256 _id, string memory _name) external onlyOwner {
         require(
@@ -68,7 +76,7 @@ contract Election {
     }
 
     /**
-     * @dev Register to vote, requiring that the user is "verified" in the mock contract.
+     * @dev Register to vote, requiring user is "verified" (mock verification).
      */
     function registerToVote() external {
         require(!registeredVoters[msg.sender], "Already registered");
@@ -79,7 +87,7 @@ contract Election {
     }
 
     /**
-     * @dev Start the election.
+     * @dev Start the election (owner only).
      */
     function startElection() external onlyOwner {
         require(!isElectionActive, "Election already active");
@@ -88,7 +96,7 @@ contract Election {
     }
 
     /**
-     * @dev End the election.
+     * @dev End the election (owner only).
      */
     function endElection() external onlyOwner {
         require(isElectionActive, "Election is not active");
@@ -97,7 +105,7 @@ contract Election {
     }
 
     /**
-     * @dev Vote for a candidate (registered & not-yet-voted).
+     * @dev Vote for a candidate (must be registered, not voted yet, and election active).
      */
     function vote(uint256 _candidateId) external onlyWhenActive {
         require(registeredVoters[msg.sender], "Not registered");
@@ -123,7 +131,7 @@ contract Election {
     }
 
     /**
-     * @dev Get candidate info by ID.
+     * @dev Get candidate info by ID (returns name and voteCount).
      */
     function getCandidate(
         uint256 _candidateId
@@ -131,5 +139,41 @@ contract Election {
         uint256 idx = candidateIndex[_candidateId];
         Candidate memory c = candidates[idx];
         return (c.name, c.voteCount);
+    }
+
+    /**
+     * @dev Return the entire list of candidates and their vote counts.
+     */
+    function getAllCandidates() external view returns (Candidate[] memory) {
+        return candidates;
+    }
+
+    /**
+     * @dev Gets the current leading candidate (winner).
+     */
+    function getCurrentLeader()
+        external
+        view
+        returns (
+            uint256 leaderId,
+            string memory leaderName,
+            uint256 leaderVotes
+        )
+    {
+        require(candidates.length > 0, "No candidates available");
+
+        uint256 highestVotes = 0;
+        uint256 leaderIdx = 0;
+
+        for (uint256 i = 0; i < candidates.length; i++) {
+            if (candidates[i].voteCount > highestVotes) {
+                highestVotes = candidates[i].voteCount;
+                leaderIdx = i;
+            }
+        }
+
+        leaderId = candidates[leaderIdx].id;
+        leaderName = candidates[leaderIdx].name;
+        leaderVotes = candidates[leaderIdx].voteCount;
     }
 }

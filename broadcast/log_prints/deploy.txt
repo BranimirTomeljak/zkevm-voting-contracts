@@ -1,0 +1,46 @@
+branimirt@Branimirs-MacBook-Pro zkp-voting-contracts % forge script script/Deploy.s.sol:DeployScript --rpc-url https://rpc.cardona.zkevm-rpc.com --private-key $PRIVATE_KEY --broadcast --legacy
+[⠊] Compiling...
+No files changed, compilation skipped
+Script ran successfully.
+
+== Logs ==
+  MockUserVerification deployed at: 0x1b578E82E9a9c309c7ed63E7a806460E5A0B545C
+  Election deployed at: 0x725080a09519246D35587094ba78cd5EC814ee3E
+
+## Setting up 1 EVM.
+
+==========================
+
+Chain 2442
+
+Estimated gas price: 0.0115 gwei
+
+Estimated total gas used for script: 1662111
+
+Estimated amount required: 0.0000191142765 ETH
+
+==========================
+
+##### 2442
+✅  [Success] Hash: 0xd0e226aaa0780ef62ffc0bc18be21c32359ab59657dca21c5637c76af67d8d92
+Contract Address: 0x1b578E82E9a9c309c7ed63E7a806460E5A0B545C
+Block: 11259205
+Paid: 0.0000024438765 ETH (212511 gas * 0.0115 gwei)
+
+
+##### 2442
+✅  [Success] Hash: 0x58a8d3bbb32800b9034621c718aa8c7e473ff7c6da97ea658bdb0f9a5c72b980
+Contract Address: 0x725080a09519246D35587094ba78cd5EC814ee3E
+Block: 11259205
+Paid: 0.0000122555155 ETH (1065697 gas * 0.0115 gwei)
+
+✅ Sequence #1 on 2442 | Total Paid: 0.000014699392 ETH (1278208 gas * avg 0.0115 gwei)
+                                                                                                                                                                                                           
+
+==========================
+
+ONCHAIN EXECUTION COMPLETE & SUCCESSFUL.
+
+Transactions saved to: /Users/branimirt/Documents/GitHub/zkp-voting-contracts/broadcast/Deploy.s.sol/2442/run-latest.json
+
+Sensitive values saved to: /Users/branimirt/Documents/GitHub/zkp-voting-contracts/cache/Deploy.s.sol/2442/run-latest.json

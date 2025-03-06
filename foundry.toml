@@ -5,4 +5,5 @@ optimizer-runs = 200
 
 [profile.cardonaZkEVM]
 rpc_url = "https://rpc.cardona.zkevm-rpc.com" #testnet
-private_key = "${FOUNDRY_PVT_KEY}"
+private_key = "${PRIVATE_KEY}"
+legacy = true

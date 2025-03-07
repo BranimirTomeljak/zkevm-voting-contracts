@@ -5,23 +5,13 @@ interface IMockUserVerification {
     function isUserVerified(address user) external view returns (bool);
 }
 
-/**
- * @title Election
- * @dev A simple voting contract referencing a mock user verification contract.
- */
 contract Election {
-    address public owner;
-
     enum ElectionState {
         Preparing,
         Active,
         Ended,
         Reset
     }
-    ElectionState public electionState;
-
-    // Reference to a mock user verification contract (whitelisting / gating)
-    IMockUserVerification public userVerifier;
 
     struct Candidate {
         uint256 id;
@@ -29,26 +19,27 @@ contract Election {
         uint256 voteCount;
     }
 
-    // Array of candidates
+    // Administrative variables
+    address public owner;
+    ElectionState public electionState;
+    IMockUserVerification public userVerifier;
+    uint256 public electionCount;
+
+    // Candidate management
     Candidate[] public candidates;
-
-    // Maps candidate ID -> index in the `candidates` array
     mapping(uint256 => uint256) private candidateIndex;
-
-    // Track if ID exists to prevent duplicate candidates
     mapping(uint256 => bool) private candidateExists;
 
-    // Track who's registered and who has voted
+    // Voter tracking
     mapping(address => bool) public registeredVoters;
     mapping(address => bool) public hasVoted;
 
-    // Track historical elections
-    uint256 public electionCount;
-    // Modified: store candidates individually for each election
+    // Historical election data
     mapping(uint256 => mapping(uint256 => Candidate))
         public electionResultCandidates;
     mapping(uint256 => uint256) public electionResultCandidateCount;
 
+    // Events
     event CandidateAdded(uint256 indexed id, string name);
     event VoterRegistered(address indexed voter);
     event VoteCasted(address indexed voter, uint256 candidateId);
@@ -56,6 +47,7 @@ contract Election {
     event ElectionEnded(uint256 indexed electionId);
     event ElectionReset();
 
+    // Modifiers
     modifier onlyOwner() {
         require(msg.sender == owner, "Caller is not the owner");
         _;
@@ -69,6 +61,7 @@ contract Election {
         _;
     }
 
+    // Constructor
     constructor(address _verifierAddress) {
         require(_verifierAddress != address(0), "Invalid verifier address");
         owner = msg.sender;
@@ -76,9 +69,8 @@ contract Election {
         electionState = ElectionState.Preparing;
     }
 
-    /**
-     * @dev Add a single candidate (owner only), but only when preparing the election.
-     */
+    // ============ Admin Functions ============
+
     function addCandidate(
         uint256 _id,
         string memory _name
@@ -86,11 +78,6 @@ contract Election {
         _addCandidate(_id, _name);
     }
 
-    /**
-     * @dev Add multiple candidates in one transaction (owner only).
-     * @param _ids Array of candidate IDs
-     * @param _names Array of candidate names
-     */
     function addCandidatesBatch(
         uint256[] calldata _ids,
         string[] calldata _names
@@ -103,39 +90,6 @@ contract Election {
         }
     }
 
-    /**
-     * @dev Internal function to add a candidate, used by both addCandidate and addCandidatesBatch.
-     */
-    function _addCandidate(uint256 _id, string memory _name) internal {
-        require(bytes(_name).length > 0, "Candidate name cannot be empty");
-        require(!candidateExists[_id], "Candidate ID already exists");
-
-        candidates.push(Candidate(_id, _name, 0));
-        candidateIndex[_id] = candidates.length - 1;
-        candidateExists[_id] = true;
-
-        emit CandidateAdded(_id, _name);
-    }
-
-    /**
-     * @dev Register to vote, requiring user is "verified" (mock verification).
-     */
-    function registerToVote() external {
-        require(
-            electionState == ElectionState.Preparing ||
-                electionState == ElectionState.Active,
-            "Election is not in a state that allows registration"
-        );
-        require(!registeredVoters[msg.sender], "Already registered");
-        require(userVerifier.isUserVerified(msg.sender), "User not verified");
-
-        registeredVoters[msg.sender] = true;
-        emit VoterRegistered(msg.sender);
-    }
-
-    /**
-     * @dev Start the election (owner only).
-     */
     function startElection()
         external
         onlyOwner
@@ -152,13 +106,10 @@ contract Election {
         emit ElectionStarted(electionCount);
     }
 
-    /**
-     * @dev End the election (owner only).
-     */
     function endElection() external onlyOwner atState(ElectionState.Active) {
         electionState = ElectionState.Ended;
 
-        // Store the results of this election - modified to avoid memory to storage copy
+        // Store the results of this election
         electionResultCandidateCount[electionCount] = candidates.length;
         for (uint i = 0; i < candidates.length; i++) {
             electionResultCandidates[electionCount][i] = candidates[i];
@@ -167,9 +118,6 @@ contract Election {
         emit ElectionEnded(electionCount);
     }
 
-    /**
-     * @dev Reset the election to prepare for a new one (owner only).
-     */
     function resetElection() external onlyOwner atState(ElectionState.Ended) {
         // Clear candidates
         for (uint256 i = 0; i < candidates.length; i++) {
@@ -183,9 +131,21 @@ contract Election {
         emit ElectionReset();
     }
 
-    /**
-     * @dev Vote for a candidate (must be registered, not voted yet, and election active).
-     */
+    // ============ Voter Functions ============
+
+    function registerToVote() external {
+        require(
+            electionState == ElectionState.Preparing ||
+                electionState == ElectionState.Active,
+            "Election is not in a state that allows registration"
+        );
+        require(!registeredVoters[msg.sender], "Already registered");
+        require(userVerifier.isUserVerified(msg.sender), "User not verified");
+
+        registeredVoters[msg.sender] = true;
+        emit VoterRegistered(msg.sender);
+    }
+
     function vote(uint256 _candidateId) external atState(ElectionState.Active) {
         require(registeredVoters[msg.sender], "Not registered");
         require(!hasVoted[msg.sender], "Already voted");
@@ -198,16 +158,12 @@ contract Election {
         emit VoteCasted(msg.sender, _candidateId);
     }
 
-    /**
-     * @dev Returns how many candidates currently exist.
-     */
+    // ============ View Functions ============
+
     function getCandidatesCount() external view returns (uint256) {
         return candidates.length;
     }
 
-    /**
-     * @dev Get candidate info by ID (returns name and voteCount).
-     */
     function getCandidate(
         uint256 _candidateId
     ) external view returns (string memory, uint256) {
@@ -218,16 +174,10 @@ contract Election {
         return (c.name, c.voteCount);
     }
 
-    /**
-     * @dev Return the entire list of candidates and their vote counts.
-     */
     function getAllCandidates() external view returns (Candidate[] memory) {
         return candidates;
     }
 
-    /**
-     * @dev Get results from a previous election.
-     */
     function getPastElectionResults(
         uint256 _electionId
     ) external view returns (Candidate[] memory) {
@@ -246,9 +196,6 @@ contract Election {
         return results;
     }
 
-    /**
-     * @dev Gets the current leading candidate (winner).
-     */
     function getCurrentLeader()
         external
         view
@@ -275,10 +222,20 @@ contract Election {
         leaderVotes = candidates[leaderIdx].voteCount;
     }
 
-    /**
-     * @dev Gets the current state of the election.
-     */
     function getElectionState() external view returns (ElectionState) {
         return electionState;
+    }
+
+    // ============ Internal Functions ============
+
+    function _addCandidate(uint256 _id, string memory _name) internal {
+        require(bytes(_name).length > 0, "Candidate name cannot be empty");
+        require(!candidateExists[_id], "Candidate ID already exists");
+
+        candidates.push(Candidate(_id, _name, 0));
+        candidateIndex[_id] = candidates.length - 1;
+        candidateExists[_id] = true;
+
+        emit CandidateAdded(_id, _name);
     }
 }

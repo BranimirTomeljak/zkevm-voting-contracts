@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity 0.8.28;
+pragma solidity 0.8.20;
 
 import {Script, console} from "forge-std/Script.sol";
 import {MockUserVerification} from "../src/MockUserVerification.sol";
@@ -24,7 +24,7 @@ contract DeployScript is Script {
     }
 }
 
-// prvo: export PRIVATE_KEY=0xPlaceholder
+// prvo: export PRIVATE_KEY=placeholder
 // pa za provjeru: echo $PRIVATE_KEY
 // forge build
 // na FE kopirat abi fileove (i okruzit ih s [])

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.20;
 
-interface IMockUserVerification {
+interface IUserVerification {
     function isUserVerified(address user) external view returns (bool);
 }
 
@@ -9,8 +9,7 @@ contract Election {
     enum ElectionState {
         Preparing,
         Active,
-        Ended,
-        Reset
+        Ended
     }
 
     struct Candidate {
@@ -20,9 +19,9 @@ contract Election {
     }
 
     // Administrative variables
-    address public owner;
+    address public immutable owner;
     ElectionState public electionState;
-    IMockUserVerification public userVerifier;
+    IUserVerification public immutable userVerifier;
     uint256 public electionCount;
 
     // Candidate management
@@ -31,21 +30,16 @@ contract Election {
     mapping(uint256 => bool) private candidateExists;
 
     // Voter tracking
-    mapping(address => bool) public registeredVoters;
-    mapping(address => bool) public hasVoted;
+    mapping(uint256 => mapping(address => bool)) public hasVoted;
 
     // Historical election data
-    mapping(uint256 => mapping(uint256 => Candidate))
-        public electionResultCandidates;
-    mapping(uint256 => uint256) public electionResultCandidateCount;
+    mapping(uint256 => Candidate[]) public electionResults;
 
     // Events
     event CandidateAdded(uint256 indexed id, string name);
-    event VoterRegistered(address indexed voter);
     event VoteCasted(address indexed voter, uint256 candidateId);
     event ElectionStarted(uint256 indexed electionId);
-    event ElectionEnded(uint256 indexed electionId);
-    event ElectionReset();
+    event ElectionEnded(uint256 indexed electionId, uint256 totalVotes);
 
     // Modifiers
     modifier onlyOwner() {
@@ -54,10 +48,7 @@ contract Election {
     }
 
     modifier atState(ElectionState _state) {
-        require(
-            electionState == _state,
-            "Invalid election state for this operation"
-        );
+        require(electionState == _state, "Invalid election state");
         _;
     }
 
@@ -65,7 +56,7 @@ contract Election {
     constructor(address _verifierAddress) {
         require(_verifierAddress != address(0), "Invalid verifier address");
         owner = msg.sender;
-        userVerifier = IMockUserVerification(_verifierAddress);
+        userVerifier = IUserVerification(_verifierAddress);
         electionState = ElectionState.Preparing;
     }
 
@@ -73,7 +64,7 @@ contract Election {
 
     function addCandidate(
         uint256 _id,
-        string memory _name
+        string calldata _name
     ) external onlyOwner atState(ElectionState.Preparing) {
         _addCandidate(_id, _name);
     }
@@ -95,10 +86,7 @@ contract Election {
         onlyOwner
         atState(ElectionState.Preparing)
     {
-        require(
-            candidates.length > 0,
-            "Cannot start an election with no candidates"
-        );
+        require(candidates.length > 0, "Cannot start with no candidates");
 
         electionState = ElectionState.Active;
         electionCount++;
@@ -109,51 +97,42 @@ contract Election {
     function endElection() external onlyOwner atState(ElectionState.Active) {
         electionState = ElectionState.Ended;
 
-        // Store the results of this election
-        electionResultCandidateCount[electionCount] = candidates.length;
+        // Store election results
+        electionResults[electionCount] = candidates;
+
+        // Calculate total votes for the event
+        uint256 totalVotes = 0;
         for (uint i = 0; i < candidates.length; i++) {
-            electionResultCandidates[electionCount][i] = candidates[i];
+            totalVotes += candidates[i].voteCount;
         }
 
-        emit ElectionEnded(electionCount);
+        emit ElectionEnded(electionCount, totalVotes);
     }
 
-    function resetElection() external onlyOwner atState(ElectionState.Ended) {
-        // Clear candidates
+    function createNewElection()
+        external
+        onlyOwner
+        atState(ElectionState.Ended)
+    {
+        // Reset for a new election
         for (uint256 i = 0; i < candidates.length; i++) {
             candidateExists[candidates[i].id] = false;
         }
 
         delete candidates;
-
         electionState = ElectionState.Preparing;
-
-        emit ElectionReset();
     }
 
     // ============ Voter Functions ============
 
-    function registerToVote() external {
-        require(
-            electionState == ElectionState.Preparing ||
-                electionState == ElectionState.Active,
-            "Election is not in a state that allows registration"
-        );
-        require(!registeredVoters[msg.sender], "Already registered");
-        require(userVerifier.isUserVerified(msg.sender), "User not verified");
-
-        registeredVoters[msg.sender] = true;
-        emit VoterRegistered(msg.sender);
-    }
-
     function vote(uint256 _candidateId) external atState(ElectionState.Active) {
-        require(registeredVoters[msg.sender], "Not registered");
-        require(!hasVoted[msg.sender], "Already voted");
+        require(userVerifier.isUserVerified(msg.sender), "User not verified");
+        require(!hasVoted[electionCount][msg.sender], "Already voted");
         require(candidateExists[_candidateId], "Candidate doesn't exist");
 
         uint256 idx = candidateIndex[_candidateId];
         candidates[idx].voteCount++;
-        hasVoted[msg.sender] = true;
+        hasVoted[electionCount][msg.sender] = true;
 
         emit VoteCasted(msg.sender, _candidateId);
     }
@@ -185,15 +164,7 @@ contract Election {
             _electionId > 0 && _electionId <= electionCount,
             "Invalid election ID"
         );
-
-        uint256 count = electionResultCandidateCount[_electionId];
-        Candidate[] memory results = new Candidate[](count);
-
-        for (uint256 i = 0; i < count; i++) {
-            results[i] = electionResultCandidates[_electionId][i];
-        }
-
-        return results;
+        return electionResults[_electionId];
     }
 
     function getCurrentLeader()
@@ -222,14 +193,22 @@ contract Election {
         leaderVotes = candidates[leaderIdx].voteCount;
     }
 
+    function isVerifiedToVote(address _voter) external view returns (bool) {
+        return userVerifier.isUserVerified(_voter);
+    }
+
     function getElectionState() external view returns (ElectionState) {
         return electionState;
+    }
+
+    function hasUserVoted(address _user) external view returns (bool) {
+        return hasVoted[electionCount][_user];
     }
 
     // ============ Internal Functions ============
 
     function _addCandidate(uint256 _id, string memory _name) internal {
-        require(bytes(_name).length > 0, "Candidate name cannot be empty");
+        require(bytes(_name).length > 0, "Name cannot be empty");
         require(!candidateExists[_id], "Candidate ID already exists");
 
         candidates.push(Candidate(_id, _name, 0));

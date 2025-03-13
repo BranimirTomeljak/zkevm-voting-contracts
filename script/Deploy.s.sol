@@ -2,11 +2,11 @@
 pragma solidity 0.8.20;
 
 import {Script, console} from "forge-std/Script.sol";
-import {MockUserVerification} from "../src/MockUserVerification.sol";
+import {UserVerification} from "../src/UserVerification.sol";
 import {Election} from "../src/Election.sol";
 
 contract DeployScript is Script {
-    MockUserVerification public verifier;
+    UserVerification public verifier;
     Election public election;
 
     function setUp() public {}
@@ -14,12 +14,12 @@ contract DeployScript is Script {
     function run() public {
         vm.startBroadcast();
 
-        verifier = new MockUserVerification();
+        verifier = new UserVerification();
         election = new Election(address(verifier));
 
         vm.stopBroadcast();
 
-        console.log("MockUserVerification deployed at:", address(verifier));
+        console.log("UserVerification deployed at:", address(verifier));
         console.log("Election deployed at:", address(election));
     }
 }

@@ -11,6 +11,7 @@ contract UserVerification {
     // Events
     event UserVerified(address indexed user);
     event UserUnverified(address indexed user);
+    event SelfVerified(address indexed user);
 
     // Modifiers
     modifier onlyOwner() {
@@ -45,6 +46,14 @@ contract UserVerification {
         require(_user != address(0), "Invalid address");
         _verifiedUsers[_user] = false;
         emit UserUnverified(_user);
+    }
+
+    // ============ Self-Verification Function ============
+
+    function verifySelf() external {
+        require(msg.sender != address(0), "Invalid address");
+        _verifiedUsers[msg.sender] = true;
+        emit SelfVerified(msg.sender);
     }
 
     // ============ View Functions ============

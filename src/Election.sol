@@ -62,14 +62,7 @@ contract Election {
 
     // ============ Admin Functions ============
 
-    function addCandidate(
-        uint256 _id,
-        string calldata _name
-    ) external onlyOwner atState(ElectionState.Preparing) {
-        _addCandidate(_id, _name);
-    }
-
-    function addCandidatesBatch(
+    function addCandidates(
         uint256[] calldata _ids,
         string[] calldata _names
     ) external onlyOwner atState(ElectionState.Preparing) {
@@ -139,20 +132,6 @@ contract Election {
 
     // ============ View Functions ============
 
-    function getCandidatesCount() external view returns (uint256) {
-        return candidates.length;
-    }
-
-    function getCandidate(
-        uint256 _candidateId
-    ) external view returns (string memory, uint256) {
-        require(candidateExists[_candidateId], "Candidate doesn't exist");
-
-        uint256 idx = candidateIndex[_candidateId];
-        Candidate memory c = candidates[idx];
-        return (c.name, c.voteCount);
-    }
-
     function getAllCandidates() external view returns (Candidate[] memory) {
         return candidates;
     }
@@ -191,14 +170,6 @@ contract Election {
         leaderId = candidates[leaderIdx].id;
         leaderName = candidates[leaderIdx].name;
         leaderVotes = candidates[leaderIdx].voteCount;
-    }
-
-    function isVerifiedToVote(address _voter) external view returns (bool) {
-        return userVerifier.isUserVerified(_voter);
-    }
-
-    function getElectionState() external view returns (ElectionState) {
-        return electionState;
     }
 
     function hasUserVoted(address _user) external view returns (bool) {

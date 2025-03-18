@@ -32,16 +32,6 @@ contract UserVerification {
         emit UserVerified(_user);
     }
 
-    function verifyUsersBatch(address[] calldata _users) external onlyOwner {
-        require(_users.length > 0, "Empty batch");
-
-        for (uint i = 0; i < _users.length; i++) {
-            require(_users[i] != address(0), "Invalid address");
-            _verifiedUsers[_users[i]] = true;
-            emit UserVerified(_users[i]);
-        }
-    }
-
     function unverifyUser(address _user) external onlyOwner {
         require(_user != address(0), "Invalid address");
         _verifiedUsers[_user] = false;

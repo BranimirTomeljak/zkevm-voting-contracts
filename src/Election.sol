@@ -70,7 +70,14 @@ contract Election {
         require(_ids.length > 0, "Cannot add empty batch");
 
         for (uint256 i = 0; i < _ids.length; i++) {
-            _addCandidate(_ids[i], _names[i]);
+            require(bytes(_names[i]).length > 0, "Name cannot be empty");
+            require(!candidateExists[_ids[i]], "Candidate ID already exists");
+
+            candidates.push(Candidate(_ids[i], _names[i], 0));
+            candidateIndex[_ids[i]] = candidates.length - 1;
+            candidateExists[_ids[i]] = true;
+
+            emit CandidateAdded(_ids[i], _names[i]);
         }
     }
 

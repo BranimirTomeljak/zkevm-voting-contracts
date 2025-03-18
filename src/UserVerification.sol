@@ -22,6 +22,7 @@ contract UserVerification {
     // Constructor
     constructor() {
         owner = msg.sender;
+        _verifiedUsers[owner] = true;
     }
 
     // ============ Admin Functions ============

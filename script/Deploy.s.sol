@@ -24,52 +24,49 @@ contract DeployScript is Script {
     }
 }
 
-// export PRIVATE_KEY=
-// export USER_VERIFICATION=
-// export ELECTION=
-
+// export PRIVATE_KEY, USER_VERIFICATION, ELECTION, CARDONA_RPC
 // na FE kopirat abi fileove
 
 /*
 Deploy contracts:
-forge script script/Deploy.s.sol:DeployScript --rpc-url https://rpc.cardona.zkevm-rpc.com --private-key $PRIVATE_KEY --broadcast --legacy
+forge script script/Deploy.s.sol:DeployScript --rpc-url $CARDONA_RPC --private-key $PRIVATE_KEY --broadcast --legacy
 
 Add a Candidate:
-cast send $ELECTION "addCandidates(uint256[],string[])" "[1,2]" "[\"Alice\",\"Bob\"]" --rpc-url https://rpc.cardona.zkevm-rpc.com --private-key $PRIVATE_KEY --legacy
+cast send $ELECTION "addCandidates(uint256[],string[])" "[1,2]" "[\"Alice\",\"Bob\"]" --rpc-url $CARDONA_RPC --private-key $PRIVATE_KEY --legacy
 
 Start the Election:
-cast send $ELECTION "startElection()" --rpc-url https://rpc.cardona.zkevm-rpc.com --private-key $PRIVATE_KEY --legacy
+cast send $ELECTION "startElection()" --rpc-url $CARDONA_RPC --private-key $PRIVATE_KEY --legacy
 
 End the Election:
-cast send $ELECTION "endElection()" --rpc-url https://rpc.cardona.zkevm-rpc.com --private-key $PRIVATE_KEY --legacy
+cast send $ELECTION "endElection()" --rpc-url $CARDONA_RPC --private-key $PRIVATE_KEY --legacy
 
 Create a New Election:
-cast send $ELECTION "createNewElection()" --rpc-url https://rpc.cardona.zkevm-rpc.com --private-key $PRIVATE_KEY --legacy
+cast send $ELECTION "createNewElection()" --rpc-url $CARDONA_RPC --private-key $PRIVATE_KEY --legacy
 
 Vote for a Candidate:
-cast send $ELECTION "vote(uint256)" 1 --rpc-url https://rpc.cardona.zkevm-rpc.com --private-key $PRIVATE_KEY --legacy
+cast send $ELECTION "vote(uint256)" 1 --rpc-url $CARDONA_RPC --private-key $PRIVATE_KEY --legacy
 
 Verify a User (Admin Only):
-cast send $USER_VERIFICATION "verifyUser(address)" 0xUserToVerify --rpc-url https://rpc.cardona.zkevm-rpc.com --private-key $PRIVATE_KEY --legacy
+cast send $USER_VERIFICATION "verifyUser(address)" 0xUserToVerify --rpc-url $CARDONA_RPC --private-key $PRIVATE_KEY --legacy
 
 Unverify a User (Admin Only):
-cast send $USER_VERIFICATION "unverifyUser(address)" 0xUserToUnverify --rpc-url https://rpc.cardona.zkevm-rpc.com --private-key $PRIVATE_KEY --legacy
+cast send $USER_VERIFICATION "unverifyUser(address)" 0xUserToUnverify --rpc-url $CARDONA_RPC --private-key $PRIVATE_KEY --legacy
 
 Self-Verify as a User:
-cast send $USER_VERIFICATION "verifySelf()" --rpc-url https://rpc.cardona.zkevm-rpc.com --private-key $PRIVATE_KEY --legacy
+cast send $USER_VERIFICATION "verifySelf()" --rpc-url $CARDONA_RPC --private-key $PRIVATE_KEY --legacy
 
 Check if a User is Verified:
-cast call $USER_VERIFICATION "isUserVerified(address)" 0xUserToCheck --rpc-url https://rpc.cardona.zkevm-rpc.com
+cast call $USER_VERIFICATION "isUserVerified(address)" 0xUserToCheck --rpc-url $CARDONA_RPC
 
 Get All Candidates:
-cast call $ELECTION "getAllCandidates()" --rpc-url https://rpc.cardona.zkevm-rpc.com
+cast call $ELECTION "getAllCandidates()" --rpc-url $CARDONA_RPC
 
 Get Past Election Results:
-cast call $ELECTION "getPastElectionResults(uint256)" 1 --rpc-url https://rpc.cardona.zkevm-rpc.com
+cast call $ELECTION "getPastElectionResults(uint256)" 1 --rpc-url $CARDONA_RPC
 
 Get Current Leader:
-cast call $ELECTION "getCurrentLeader()" --rpc-url https://rpc.cardona.zkevm-rpc.com
+cast call $ELECTION "getCurrentLeader()" --rpc-url $CARDONA_RPC
 
 Check if a User Has Voted:
-cast call $ELECTION "hasUserVoted(address)" 0xUserToCheck --rpc-url https://rpc.cardona.zkevm-rpc.com
+cast call $ELECTION "hasUserVoted(address)" 0xUserToCheck --rpc-url $CARDONA_RPC
 */
